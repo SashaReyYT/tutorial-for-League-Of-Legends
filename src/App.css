@@ -1,0 +1,43 @@
+section {
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+/*ФОННННН */
+.section-dark {
+  background-color: #0a0a23;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+
+/*ФОННННН */
+.section-image {
+  background: url('/League_of_Legends_Cover.jpg') center/cover no-repeat;
+  min-height: 100vh;
+  display: flex;
+  width: 100%;
+}
+
+
+.section-image::before {
+  content: "";
+  position: absolute;
+  inset: 1;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+
+.section-image .container {
+  position: relative;
+  z-index: 2;
+}
+
+
+h1, h2 {
+  font-weight: 800;
+  font-style: italic;
+}
