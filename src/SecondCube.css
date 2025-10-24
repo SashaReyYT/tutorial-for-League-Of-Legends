@@ -1,0 +1,195 @@
+.second-cube {
+  background: #f5f7fa;
+  border: 3px solid #000;           /* чуток большие границы как просили */
+  border-radius: 14px;
+  padding: 20px;
+  margin: 20px;
+  width: calc(100% - 40px);        /* занимает всю доступную ширину */
+  min-height: 98vh;                /* "кубик" по высоте экрана */
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Верхняя полоса категорий — всегда сверху, на всю ширину */
+.top-categories {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  justify-content: center; /* можно заменить на flex-start если нужно слева */
+  align-items: center;
+  background: transparent;
+  flex-shrink: 0;
+  border-radius: 10px;
+}
+
+/* Кнопки категорий */
+.top-categories .cat {
+  /* Делаем дизайн кнопок категорий таким же, как у chapter-btn */
+  background: transparent;
+  border: 2px solid rgba(0,0,0,0.12);
+  border-radius: 10px;
+  font-weight: 700;
+  color: #111;
+  cursor: pointer;
+
+  /* Подгоняем размеры: высота близкая к диаметру квадрата в sidebar */
+  padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Активное состояние категории — совпадает с активным чаптером */
+.top-categories .cat.active {
+  background: #fff;
+  border-color: #000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+/* Hover эффект для категорий */
+.top-categories .cat:hover {
+  background: rgba(0,0,0,0.03);
+}
+
+/* Основной контейнер — растягивается, чтобы заполнить оставшуюся высоту */
+.content-wrapper {
+  display: grid;
+  grid-template-columns: 240px 1fr 320px;
+  gap: 18px;
+  align-items: stretch;
+  flex: 1;                 /* занять доступное пространство внутри .second-cube */
+  width: 100%;
+  min-height: 0;          /* важно для корректной прокрутки flex-children */
+}
+
+/* Общие правила для колонок — заполняют всю высоту контента */
+.sidebar,
+.main,
+.illustration {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 14px;
+  color: #111;
+  border: 2px solid #000;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;          /* важно для корректного overflow внутри flex/grid */
+}
+
+.sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 8px;
+  /* Смена сетки на колонку — элементы идут сверху вниз и равномерно заполняют высоту */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  justify-content: space-between; /* равномерно распределяет элементы по высоте */
+}
+
+/* Sidebar: равные отступы между кнопками и от краёв */
+.sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;                      /* убираем внутренний отступ, чтобы spacing был равным до рамок */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;  /* одинаковые расстояния между элементами и от краёв */
+  align-items: stretch;            /* кнопки растягиваются по ширине */
+  height: 100%;
+  overflow: hidden;
+}
+
+.chapter-item {
+  display: block;
+  padding: 0;
+  margin: 0;
+  flex: none;                      /* высота определяется кнопкой (aspect-ratio) */
+  width: 100%;
+}
+
+/* квадратные кнопки */
+.chapter-btn {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 2px solid rgba(0,0,0,0.12);
+  border-radius: 10px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* активная и hover стили — оставляем как есть или чуть подчёркиваем */
+.chapter-selected .chapter-btn {
+  background: #fff;
+  border-color: #000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+.chapter-btn:hover {
+  background: rgba(0,0,0,0.03);
+}
+
+
+
+
+
+
+/* Основной блок — внутренний контейнер занимает всё доступное место и прокручивается */
+.main-inner {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  flex: 1;                 /* занимает всё пространство main */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: auto;          /* прокрутка текста внутри */
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+/* Текстовый блок внутри main */
+.text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.text-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #111;
+}
+
+.text-body {
+  line-height: 1.6;
+  font-size: 15px;
+  color: #333;
+}
+
+/* Иллюстрация — растягивается и центрирует контент */
+.illustration-inner {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Адаптив: в узких ширинах колонки складываются вертикально */
+@media (max-width: 900px) {
+  .content-wrapper {
+    grid-template-columns: 1fr;
+    grid-auto-rows: min-content;
+  }
+  .top-categories { justify-content: center; }
+}
