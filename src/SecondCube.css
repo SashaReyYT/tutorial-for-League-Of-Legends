@@ -1,195 +1,553 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Inter:wght@300;400;600;700&display=swap');
+
+:root{
+  --bg-1: #071025;
+  --bg-2: #041222;
+  --panel: rgba(255,255,255,0.03);
+  --text: #E8EEF6;
+  --muted: #9FB3C8;
+  --accent: #E6B84A;
+  --accent-2: #C89A2E;
+  --glass: rgba(255,255,255,0.04);
+  --shadow: 0 18px 50px rgba(2,8,20,0.62);
+  --radius: 16px;
+}
+
+/* Page / larger cube container — full width across the viewport */
 .second-cube {
-  background: #f5f7fa;
-  border: 3px solid #000;           /* чуток большие границы как просили */
-  border-radius: 14px;
-  padding: 20px;
-  margin: 20px;
-  width: calc(100% - 40px);        /* занимает всю доступную ширину */
-  min-height: 98vh;                /* "кубик" по высоте экрана */
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+  width: 100vw;                       /* занурюємо у всю ширину екрану */
+  max-width: none;
+  margin: 0;                          /* притиснути до країв */
+  background: radial-gradient(1200px 400px at 10% 10%, rgba(230,184,74,0.04), transparent 8%),
+              linear-gradient(180deg, var(--bg-1), var(--bg-2));
+  padding: 48px 56px;                 /* просторі відступи */
+  min-height: 100vh;                  /* зайняти всю висоту вікна */
+  color: var(--text);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  border-radius: 0;                   /* без скруглення, щоб тяглося на весь екран */
+  box-shadow: var(--shadow);
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
-/* Верхняя полоса категорий — всегда сверху, на всю ширину */
+/* Top categories */
 .top-categories {
-  display: flex;
-  gap: 12px;
-  padding: 12px;
-  justify-content: center; /* можно заменить на flex-start если нужно слева */
-  align-items: center;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-bottom:22px;
+  flex-wrap:wrap;
+}
+.top-categories .cat{
   background: transparent;
-  flex-shrink: 0;
-  border-radius: 10px;
-}
-
-/* Кнопки категорий */
-.top-categories .cat {
-  /* Делаем дизайн кнопок категорий таким же, как у chapter-btn */
-  background: transparent;
-  border: 2px solid rgba(0,0,0,0.12);
-  border-radius: 10px;
-  font-weight: 700;
-  color: #111;
-  cursor: pointer;
-
-  /* Подгоняем размеры: высота близкая к диаметру квадрата в sidebar */
-  padding: 10px 16px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-/* Активное состояние категории — совпадает с активным чаптером */
-.top-categories .cat.active {
-  background: #fff;
-  border-color: #000;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-}
-
-/* Hover эффект для категорий */
-.top-categories .cat:hover {
-  background: rgba(0,0,0,0.03);
-}
-
-/* Основной контейнер — растягивается, чтобы заполнить оставшуюся высоту */
-.content-wrapper {
-  display: grid;
-  grid-template-columns: 240px 1fr 320px;
-  gap: 18px;
-  align-items: stretch;
-  flex: 1;                 /* занять доступное пространство внутри .second-cube */
-  width: 100%;
-  min-height: 0;          /* важно для корректной прокрутки flex-children */
-}
-
-/* Общие правила для колонок — заполняют всю высоту контента */
-.sidebar,
-.main,
-.illustration {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 14px;
-  color: #111;
-  border: 2px solid #000;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;          /* важно для корректного overflow внутри flex/grid */
-}
-
-.sidebar ul {
-  list-style: none;
-  margin: 0;
-  padding: 8px;
-  /* Смена сетки на колонку — элементы идут сверху вниз и равномерно заполняют высоту */
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  height: 100%;
-  justify-content: space-between; /* равномерно распределяет элементы по высоте */
-}
-
-/* Sidebar: равные отступы между кнопками и от краёв */
-.sidebar ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;                      /* убираем внутренний отступ, чтобы spacing был равным до рамок */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;  /* одинаковые расстояния между элементами и от краёв */
-  align-items: stretch;            /* кнопки растягиваются по ширине */
-  height: 100%;
-  overflow: hidden;
-}
-
-.chapter-item {
-  display: block;
-  padding: 0;
-  margin: 0;
-  flex: none;                      /* высота определяется кнопкой (aspect-ratio) */
-  width: 100%;
-}
-
-/* квадратные кнопки */
-.chapter-btn {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: 2px solid rgba(0,0,0,0.12);
-  border-radius: 10px;
-  font-weight: 700;
-  text-align: center;
-  cursor: pointer;
-  padding: 0;
-}
-
-/* активная и hover стили — оставляем как есть или чуть подчёркиваем */
-.chapter-selected .chapter-btn {
-  background: #fff;
-  border-color: #000;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-}
-.chapter-btn:hover {
-  background: rgba(0,0,0,0.03);
-}
-
-
-
-
-
-
-/* Основной блок — внутренний контейнер занимает всё доступное место и прокручивается */
-.main-inner {
-  background: #fff;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--text);
+  padding:10px 16px;
   border-radius: 12px;
-  padding: 18px;
-  flex: 1;                 /* занимает всё пространство main */
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  overflow: auto;          /* прокрутка текста внутри */
-  align-items: stretch;
-  justify-content: flex-start;
+  font-weight:700;
+  letter-spacing:0.02em;
+  cursor:pointer;
+  transition: all .14s ease;
+  box-shadow: 0 4px 12px rgba(2,8,20,0.35);
+  font-size: 15px;
+}
+.top-categories .cat:hover{
+  transform: translateY(-4px);
+  border-color: rgba(230,184,74,0.22);
+  box-shadow: 0 18px 38px rgba(2,8,20,0.6);
+}
+.top-categories .cat.active{
+  background: linear-gradient(180deg, rgba(230,184,74,0.09), rgba(200,150,40,0.03));
+  border-color: rgba(230,184,74,0.28);
+  color: #081018;
 }
 
-/* Текстовый блок внутри main */
+/* Content layout - wider columns for bigger cube */
+.content-wrapper{
+  display: grid;
+  grid-template-columns: 320px 1fr 420px; /* підлаштовано під повну ширину */
+  gap: 36px;
+  align-items:start;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 1400px; /* обмежуємо дуже велику ширину контенту для читабельності */
+}
+
+/* Sidebar (chapters) */
+.sidebar{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  padding:18px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: var(--shadow);
+  min-height: 520px; /* збільшено */
+}
+.sidebar ul{ list-style:none; padding:8px; margin:0; display:flex; flex-direction:column; gap:12px; }
+.chapter-btn{
+  width:100%;
+  text-align:left;
+  padding:14px 16px;
+  border-radius:12px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text);
+  font-weight:700;
+  cursor:pointer;
+  transition: all .12s ease;
+  font-size:16px;
+}
+.chapter-item.chapter-selected .chapter-btn{
+  background: linear-gradient(90deg, rgba(230,184,74,0.08), rgba(200,150,40,0.02));
+  border-color: rgba(230,184,74,0.14);
+  color: #071018;
+  box-shadow: 0 10px 24px rgba(200,150,40,0.08);
+}
+
+/* Main content - roomy and centered */
+.main{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  padding:32px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 18px 40px rgba(2,8,20,0.5);
+  min-height: 560px;
+}
+.main-inner{ max-width:1100px; margin:0 auto; }
+
+/* Right illustration panel - larger visual area */
+.illustration{
+  padding:18px;
+}
+.illustration-inner{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,0.03);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:520px; /* збільшено */
+  box-shadow: 0 18px 40px rgba(2,8,20,0.5);
+}
+
+/* Typography: larger heading + roomy body (cinzel + inter) */
+.text-block {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  padding: 8px 6px;
+}
+.text-title{
+  font-family: "Cinzel", "Georgia", serif;
+  font-weight:800;
+  font-size: 3.2rem;             /* ще більше для великого куба */
+  margin: 0 0 20px 0;
+  color: #F8F3E7;
+  letter-spacing: -0.02em;
+  text-shadow: 0 12px 36px rgba(2,8,20,0.65);
+  line-height: 1.02;
+}
+
+/* Body text: larger, very readable */
+.text-body{
+  font-size: 21px;               /* збільшений текст */
+  line-height: 2.0;
+  color: var(--muted);
+  text-align: left;
+  hyphens:auto;
+  word-break: break-word;
+  background: linear-gradient(180deg, rgba(255,255,255,0.004), rgba(255,255,255,0.002));
+  padding:18px;
+  border-radius:12px;
+  min-height: 360px;
+}
+
+/* Paragraphs */
+.text-body p{ margin:0 0 1.3rem 0; color: var(--muted); font-size: 21px; }
+
+/* Drop-cap for the first paragraph: very large L support */
+.text-body p:first-of-type::first-letter{
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 7.0rem;             /* дуже велика буква для ефекту */
+  font-weight:900;
+  float:left;
+  line-height:0.78;
+  margin:8px 22px 0 0;
+  color: var(--accent);
+  text-shadow: 0 20px 50px rgba(0,0,0,0.7);
+}
+
+/* Big L helper class if needed */
+.big-L{ font-size:6.4rem; font-weight:900; color:var(--accent); font-family:"Cinzel", serif; }
+
+/* Strong / highlight styles */
+.text-body strong{ color: #F8F3E7; font-weight:900; font-size: 22px; }
+.highlight{
+  display:inline-block;
+  background: linear-gradient(90deg, rgba(230,184,74,0.18), rgba(200,150,40,0.08));
+  color: #081018;
+  padding:0 12px;
+  border-radius:12px;
+  font-weight:900;
+  box-shadow: inset 0 -2px 0 rgba(200,150,40,0.08);
+  font-size: 20px;
+}
+
+/* Accent words (gold) */
+.accent{ color: var(--accent); font-weight:900; font-size: 20px; }
+
+/* Quote style */
+.text-body .quote{
+  margin: 1rem 0 0;
+  padding-left: 18px;
+  border-left: 5px solid rgba(230,184,74,0.16);
+  color: #DCE9F6;
+  font-style: italic;
+  background: linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+  border-radius:8px;
+  padding:18px 18px;
+  font-size: 20px;
+}
+
+/* Links */
+.text-body a{ color: var(--accent); text-decoration: underline; font-weight:900; }
+
+/* Images */
+.text-body img{ max-width:100%; border-radius:12px; display:block; margin:20px auto; box-shadow: 0 20px 50px rgba(2,8,20,0.7); }
+
+/* Small screens - scale down proportionally */
+@media (max-width:1200px){
+  .content-wrapper{ grid-template-columns: 280px 1fr 360px; gap:28px; max-width: 1100px; }
+  .sidebar{ min-height: 480px; }
+  .illustration-inner{ min-height:480px; }
+  .text-title{ font-size:2.8rem; }
+  .text-body{ font-size:19px; line-height:1.9; padding:16px; }
+  .text-body p:first-of-type::first-letter{ font-size:5.2rem; margin-right:16px; }
+}
+@media (max-width:900px){
+  .second-cube { padding: 28px; }
+  .content-wrapper{ grid-template-columns: 1fr; gap:22px; }
+  .sidebar{ order:2; min-height: auto; }
+  .main{ order:1; min-height: auto; padding:20px; }
+  .illustration-inner{ min-height:320px; margin-top:12px; }
+  .text-title{ font-size:2.0rem; }
+  .text-body{ font-size:17px; line-height:1.7; padding:12px; }
+  .text-body p:first-of-type::first-letter{ font-size:3.6rem; margin-right:12px; }
+  .chapter-btn{ font-size:14px; padding:10px 12px; }
+}
+
+/* Accessibility tweaks */
+:focus{ outline: none; }
+button:focus{ box-shadow: 0 0 0 6px rgba(230,184,74,0.14); border-color: rgba(230,184,74,0.22); }
+
+
+
+:root{
+  --bg-1: #071025;
+  --bg-2: #041222;
+  --panel: rgba(255,255,255,0.03);
+  --text: #E8EEF6;
+  --muted: #9FB3C8;
+  --accent: #E6B84A;
+  --accent-2: #C89A2E;
+  --glass: rgba(255,255,255,0.04);
+  --shadow: 0 18px 50px rgba(2,8,20,0.62);
+  --radius: 16px;
+}
+
+/* Page / larger cube container — full width across the viewport */
+.second-cube {
+  width: 100vw;                       /* занурюємо у всю ширину екрану */
+  max-width: none;
+  margin: 0;                          /* притиснути до країв */
+  background: radial-gradient(1200px 400px at 10% 10%, rgba(230,184,74,0.04), transparent 8%),
+              linear-gradient(180deg, var(--bg-1), var(--bg-2));
+  padding: 48px 56px;                 /* просторі відступи */
+  min-height: 100vh;                  /* зайняти всю висоту вікна */
+  color: var(--text);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  border-radius: 0;                   /* без скруглення, щоб тяглося на весь екран */
+  box-shadow: var(--shadow);
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Top categories */
+.top-categories {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-bottom:22px;
+  flex-wrap:wrap;
+}
+.top-categories .cat{
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--text);
+  padding:10px 16px;
+  border-radius: 12px;
+  font-weight:700;
+  letter-spacing:0.02em;
+  cursor:pointer;
+  transition: all .14s ease;
+  box-shadow: 0 4px 12px rgba(2,8,20,0.35);
+  font-size: 15px;
+}
+.top-categories .cat:hover{
+  transform: translateY(-4px);
+  border-color: rgba(230,184,74,0.22);
+  box-shadow: 0 18px 38px rgba(2,8,20,0.6);
+}
+.top-categories .cat.active{
+  background: linear-gradient(180deg, rgba(230,184,74,0.09), rgba(200,150,40,0.03));
+  border-color: rgba(230,184,74,0.28);
+  color: #081018;
+}
+
+/* Content layout - wider columns for bigger cube */
+.content-wrapper{
+  display: grid;
+  grid-template-columns: 320px 1fr 420px;
+  gap: 36px;
+  align-items: stretch;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;           /* прибираємо центрування, щоб займати всю ширину */
+  max-width: none;     /* скасовуємо обмеження ширини для повного заповнення */
+  min-height: calc(100vh - 160px); /* підлаштування під падінги контейнера */
+}
+
+/* Головна панель і внутрішні блоки: штовхаємо контент займати всю висоту */
+.main{
+  display: flex;
+  flex-direction: column;
+  padding:32px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 18px 40px rgba(2,8,20,0.5);
+  min-height: 0;     /* важливо для коректної прокрутки в flex */
+  height: 100%;
+  overflow: hidden;  /* контролюємо прокрутку на внутрішніх елементах */
+}
+
+/* Внутрішня обгортка займає всю висоту main */
+.main-inner{
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+/* Текстовий блок розтягується на весь доступний простір */
 .text-block {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
+  height: 100%;
   gap: 12px;
+  box-sizing: border-box;
 }
 
-.text-title {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 800;
-  color: #111;
+/* Заголовок залишається зверху, не витісняє весь простір */
+.text-title{
+  flex: 0 0 auto;
+  margin: 0 0 12px 0;
+  line-height: 1.02;
 }
 
-.text-body {
-  line-height: 1.6;
-  font-size: 15px;
-  color: #333;
+/* Тіло тексту займає увесь залишковий простір — розтягується по ширині та висоті */
+.text-body{
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* вертикальна прокрутка при потребі */
+  padding: 20px;
+  box-sizing: border-box;
+  display: block;
+  background: linear-gradient(180deg, rgba(255,255,255,0.002), rgba(255,255,255,0.000));
+  border-radius: 10px;
 }
 
-/* Иллюстрация — растягивается и центрирует контент */
-.illustration-inner {
-  flex: 1;
+/* Забезпечуємо, що абзаци не обмежують ширину */
+.text-body p {
+  max-width: none;
+}
+
+/* Якщо потрібно, ілюстрація теж займає повну висоту колонки */
+.illustration-inner{
+  height: 100%;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: auto;
 }
 
-/* Адаптив: в узких ширинах колонки складываются вертикально */
-@media (max-width: 900px) {
-  .content-wrapper {
-    grid-template-columns: 1fr;
-    grid-auto-rows: min-content;
-  }
-  .top-categories { justify-content: center; }
+/* Важливо: sidebar теж має коректно прокручуватись і займати висоту */
+.sidebar{
+  min-height: 0;
+  height: 100%;
+  overflow: auto;
 }
+.sidebar ul{ list-style:none; padding:8px; margin:0; display:flex; flex-direction:column; gap:12px; }
+.chapter-btn{
+  width:100%;
+  text-align:left;
+  padding:14px 16px;
+  border-radius:12px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text);
+  font-weight:700;
+  cursor:pointer;
+  transition: all .12s ease;
+  font-size:16px;
+}
+.chapter-item.chapter-selected .chapter-btn{
+  background: linear-gradient(90deg, rgba(230,184,74,0.08), rgba(200,150,40,0.02));
+  border-color: rgba(230,184,74,0.14);
+  color: #071018;
+  box-shadow: 0 10px 24px rgba(200,150,40,0.08);
+}
+
+/* Main content - roomy and centered */
+.main{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  padding:32px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 18px 40px rgba(2,8,20,0.5);
+  min-height: 560px;
+}
+.main-inner{ max-width:1100px; margin:0 auto; }
+
+/* Right illustration panel - larger visual area */
+.illustration{
+  padding:18px;
+}
+.illustration-inner{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,0.03);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:520px; /* збільшено */
+  box-shadow: 0 18px 40px rgba(2,8,20,0.5);
+}
+
+/* Typography: larger heading + roomy body (cinzel + inter) */
+.text-block {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  padding: 8px 6px;
+}
+.text-title{
+  font-family: "Cinzel", "Georgia", serif;
+  font-weight:800;
+  font-size: 3.2rem;             /* ще більше для великого куба */
+  margin: 0 0 20px 0;
+  color: #F8F3E7;
+  letter-spacing: -0.02em;
+  text-shadow: 0 12px 36px rgba(2,8,20,0.65);
+  line-height: 1.02;
+}
+
+/* Body text: larger, very readable */
+.text-body{
+  font-size: 21px;               /* збільшений текст */
+  line-height: 2.0;
+  color: var(--muted);
+  text-align: left;
+  hyphens:auto;
+  word-break: break-word;
+  background: linear-gradient(180deg, rgba(255,255,255,0.004), rgba(255,255,255,0.002));
+  padding:18px;
+  border-radius:12px;
+  min-height: 360px;
+}
+
+/* Paragraphs */
+.text-body p{ margin:0 0 1.3rem 0; color: var(--muted); font-size: 21px; }
+
+/* Drop-cap for the first paragraph: very large L support */
+.text-body p:first-of-type::first-letter{
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 7.0rem;             /* дуже велика буква для ефекту */
+  font-weight:900;
+  float:left;
+  line-height:0.78;
+  margin:8px 22px 0 0;
+  color: var(--accent);
+  text-shadow: 0 20px 50px rgba(0,0,0,0.7);
+}
+
+/* Big L helper class if needed */
+.big-L{ font-size:6.4rem; font-weight:900; color:var(--accent); font-family:"Cinzel", serif; }
+
+/* Strong / highlight styles */
+.text-body strong{ color: #F8F3E7; font-weight:900; font-size: 22px; }
+.highlight{
+  display:inline-block;
+  background: linear-gradient(90deg, rgba(230,184,74,0.18), rgba(200,150,40,0.08));
+  color: #081018;
+  padding:0 12px;
+  border-radius:12px;
+  font-weight:900;
+  box-shadow: inset 0 -2px 0 rgba(200,150,40,0.08);
+  font-size: 20px;
+}
+
+/* Accent words (gold) */
+.accent{ color: var(--accent); font-weight:900; font-size: 20px; }
+
+/* Quote style */
+.text-body .quote{
+  margin: 1rem 0 0;
+  padding-left: 18px;
+  border-left: 5px solid rgba(230,184,74,0.16);
+  color: #DCE9F6;
+  font-style: italic;
+  background: linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+  border-radius:8px;
+  padding:18px 18px;
+  font-size: 20px;
+}
+
+/* Links */
+.text-body a{ color: var(--accent); text-decoration: underline; font-weight:900; }
+
+/* Images */
+.text-body img{ max-width:100%; border-radius:12px; display:block; margin:20px auto; box-shadow: 0 20px 50px rgba(2,8,20,0.7); }
+
+/* Small screens - scale down proportionally */
+@media (max-width:1200px){
+  .content-wrapper{ grid-template-columns: 280px 1fr 360px; gap:28px; max-width: 1100px; }
+  .sidebar{ min-height: 480px; }
+  .illustration-inner{ min-height:480px; }
+  .text-title{ font-size:2.8rem; }
+  .text-body{ font-size:19px; line-height:1.9; padding:16px; }
+  .text-body p:first-of-type::first-letter{ font-size:5.2rem; margin-right:16px; }
+}
+@media (max-width:1200px){
+  .second-cube { padding: 28px; }
+  .content-wrapper{ grid-template-columns: 1fr; gap:22px; }
+  .sidebar{ order:2; min-height: auto; }
+  .main{ order:1; min-height: auto; padding:20px; }
+  .illustration-inner{ min-height:320px; margin-top:12px; }
+  .text-title{ font-size:2.0rem; }
+  .text-body{ font-size:17px; line-height:1.7; padding:12px; }
+  .text-body p:first-of-type::first-letter{ font-size:3.6rem; margin-right:12px; }
+  .chapter-btn{ font-size:14px; padding:10px 12px; }
+}
+
+/* Accessibility tweaks */
+:focus{ outline: none; }
+button:focus{ box-shadow: 0 0 0 6px rgba(230,184,74,0.14); border-color: rgba(230,184,74,0.22); }
