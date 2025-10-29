@@ -8,7 +8,7 @@ interface HeroSectionProps {
   description: string;
 }
 
-export const HeroSection = ({
+export const LandingMainBlock = ({
   logoSrc,
   logoAlt,
   appName,

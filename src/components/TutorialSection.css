@@ -1,0 +1,93 @@
+/* Tutorial Section Title */
+.tutorial-title {
+  color: var(--accent-gold-light);
+}
+
+/* Category Button Styles */
+.category-btn {
+  transition: all 0.3s ease;
+}
+
+.category-btn-active {
+  background-color: var(--accent-gold-light);
+  border-color: var(--accent-gold-light);
+  color: var(--primary-dark);
+}
+
+.category-btn-inactive {
+  background-color: transparent;
+  border-color: var(--accent-gold-light);
+  color: var(--accent-gold-light);
+}
+
+.category-btn-inactive:hover {
+  background-color: var(--accent-gold-light);
+  color: var(--primary-dark);
+}
+
+/* Chapter Sidebar Styles */
+.chapter-sidebar {
+  min-width: 200px;
+  max-width: 250px;
+  background-color: var(--primary-medium);
+}
+
+.chapter-btn {
+  transition: all 0.3s ease;
+}
+
+.chapter-btn-active {
+  background-color: var(--accent-gold-light);
+  border-color: var(--accent-gold-light);
+  color: var(--primary-dark);
+}
+
+.chapter-btn-inactive {
+  background-color: transparent;
+  border-color: white;
+  color: white;
+}
+
+.chapter-btn-inactive:hover {
+  background-color: var(--accent-gold-light);
+  border-color: var(--accent-gold-light);
+  color: var(--primary-dark);
+}
+
+/* Main Content Area Container */
+.content-wrapper {
+  background: rgba(0, 41, 107, 0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 0.375rem;
+  border: 1px solid rgba(255, 213, 0, 0.2);
+}
+
+/* Main Content Styles */
+.main-content {
+  background-color: transparent;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.main-content-title {
+  color: var(--accent-gold-light);
+}
+
+.main-content-text {
+  color: white;
+  text-align: left;
+}
+
+/* Illustration Styles */
+.illustration-container {
+  min-width: 300px;
+  max-width: 400px;
+  height: 100%;
+  min-height: 400px;
+  background-color: transparent;
+}
+
+.illustration-placeholder {
+  color: var(--accent-gold-light);
+}
